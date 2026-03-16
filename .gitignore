@@ -61,6 +61,13 @@ composer.lock
 # NPM
 package-lock.json
 
+# Testing
+/tests/
+phpunit.xml
+.phpunit.result.cache
+coverage/
+.phpunit.cache/
+
 # Deployment
 /deploy/hosting/*.txt
 /deploy/supervisor/*.conf
