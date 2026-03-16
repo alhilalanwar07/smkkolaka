@@ -83,9 +83,14 @@ class TelegramWebhookController extends Controller
 
     private function dispatchSubmission(string $chatId, string $title, string $photoId): void
     {
-        $this->sendTelegramMessage($chatId, 'Permintaan diterima. AI sedang membuat draft berita, mohon tunggu...');
+        $safeTitle = mb_strimwidth(trim($title), 0, 80, '...');
 
-        ProcessTelegramNewsSubmission::dispatch($chatId, $title, $photoId);
+        $this->sendTelegramMessage(
+            $chatId,
+            "Upload Anda sudah terbaca di sistem.\nJudul: {$safeTitle}\nAI sedang membuat draft berita, mohon tunggu..."
+        );
+
+        ProcessTelegramNewsSubmission::dispatchSync($chatId, $title, $photoId);
     }
 
     private function isWebhookAuthorized(Request $request): bool
