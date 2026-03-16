@@ -1,0 +1,13 @@
+{
+    "agents": [
+        "gemini"
+    ],
+    "packages": [
+        "laravel/ai"
+    ],
+    "skills": [
+        "mcp-development",
+        "livewire-development",
+        "ai-sdk-development"
+    ]
+}

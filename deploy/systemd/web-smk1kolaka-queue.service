@@ -1,0 +1,22 @@
+[Unit]
+Description=Laravel Queue Worker - web-smk1kolaka
+After=network.target mariadb.service mysql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+Restart=always
+RestartSec=5
+WorkingDirectory=/var/www/web-smk1kolaka
+ExecStart=/usr/bin/php /var/www/web-smk1kolaka/artisan queue:work database --sleep=3 --tries=3 --max-time=3600 --timeout=120
+ExecReload=/usr/bin/php /var/www/web-smk1kolaka/artisan queue:restart
+KillSignal=SIGTERM
+TimeoutStopSec=3600
+Environment=APP_ENV=production
+Environment=QUEUE_CONNECTION=database
+StandardOutput=append:/var/www/web-smk1kolaka/storage/logs/queue-worker.log
+StandardError=append:/var/www/web-smk1kolaka/storage/logs/queue-worker.log
+
+[Install]
+WantedBy=multi-user.target

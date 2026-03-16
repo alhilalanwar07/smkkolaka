@@ -1,0 +1,34 @@
+Shared hosting fallback (no root / no Supervisor / no systemd)
+
+1) Keep queue driver database in .env:
+QUEUE_CONNECTION=database
+
+2) Find PHP CLI path from cPanel Terminal:
+which php
+
+Common result examples:
+- /usr/bin/php
+- /opt/cpanel/ea-php82/root/usr/bin/php
+
+3) Add Cron Job in cPanel (every minute):
+* * * * * cd /home/USERNAME/web-smk1kolaka && /usr/bin/php artisan queue:work database --queue=default --stop-when-empty --sleep=1 --tries=3 --timeout=120 >> storage/logs/queue-worker.log 2>&1
+
+Replace:
+- USERNAME with your hosting username
+- /usr/bin/php with output from which php
+
+4) Optional but recommended, add Laravel scheduler Cron too:
+* * * * * cd /home/USERNAME/web-smk1kolaka && /usr/bin/php artisan schedule:run >> /dev/null 2>&1
+
+5) Deploy routine after code update:
+- php artisan optimize:clear
+- php artisan config:cache
+- php artisan queue:restart
+
+6) Monitoring:
+- Check storage/logs/queue-worker.log
+- Check storage/logs/laravel.log
+
+Notes:
+- This mode is not as real-time as Supervisor/systemd, but it is the safest option on shared hosting.
+- Avoid queue:listen on shared hosting because it usually consumes more CPU/memory.
