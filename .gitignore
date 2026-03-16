@@ -1,18 +1,11 @@
+# Laravel
 *.log
-.DS_Store
 .env
-.env.backup
-.env.production
+.env.*
+!.env.example
 .phpactor.json
 .phpunit.result.cache
-/.fleet
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
 /auth.json
-/node_modules
 /public/build
 /public/hot
 /public/storage
@@ -21,4 +14,57 @@
 /vendor
 Homestead.json
 Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# IDE
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+
+# Dependencies
+/node_modules
+/bower_components
+
+# Database
+/database/database.sqlite
+/database/*.sqlite
+/database/*.sqlite-journal
+
+# Build & Cache
+/bootstrap/cache/*
+!bootstrap/cache/.gitignore
+/public/storage
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+!storage/framework/cache/.gitignore
+!storage/framework/sessions/.gitignore
+!storage/framework/views/.gitignore
+!storage/logs/.gitignore
+
+# OS
+.DS_Store
 Thumbs.db
+*.swp
+*.swo
+*~
+
+# Composer
+composer.phar
+composer.lock
+
+# NPM
+package-lock.json
+
+# Deployment
+/deploy/hosting/*.txt
+/deploy/supervisor/*.conf
+/deploy/systemd/*.service
+
+# Boost (if not needed in repo)
+boost.json
